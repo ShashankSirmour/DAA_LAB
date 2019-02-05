@@ -15,7 +15,7 @@ int  KSearch(int arr[],  int size)
 
 int main()
 {
-    int size, key;
+    int size;
     printf("enter size :");
     scanf("%d", &size);
     int *arr = (int *)malloc(sizeof(int) * size);
