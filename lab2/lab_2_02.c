@@ -5,17 +5,21 @@ Q. in given array with  items find the  pair i ,j
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 void SearchPair(int arr[], int key, int size)
-{   int i=0;
-    for(int i=0;i<size;i++)
-        for(int j=0;j<size;j++)
-            if (pow(arr[i], 2) + pow(arr[j], 2)==key ){
-            printf(" %d %d \t",i,j);
-            i=1;
-        }
+{
+    int t = 0;
+    for (int i = 0; i < size; i++)
+        for (int j = 0; j < size; j++)
+            if ((pow(arr[i], 2) + pow(arr[j], 2)) == key)
+            {
+                printf(" %d %d \t", i, j);
+                t = 1;
+            }
 
-if(!i) printf("NO PAIR PRESENT");
+    if (!t)
+        printf("NO PAIR PRESENT");
 }
 
 int main()
@@ -29,5 +33,5 @@ int main()
         scanf(" %d", &(arr[i]));
     printf("ENTER KEY : ");
     scanf("%d", &key);
-    SerachPair(arr, key, size);
+    SearchPair(arr, key, size);
 }
