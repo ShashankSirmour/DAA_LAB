@@ -1,72 +1,45 @@
 #include<stdio.h>
-#include<stdlib.h>
-void heap_sort(int[], int);
-void build_heap(int[], int);
-void satisfy_heap(int[], int, int);
+void heapify(int arr[], int n, int i) 
+{ 
+	int largest = i;  
+	int l = 2*i + 1; int r = 2*i + 2; 
+	if (l < n && arr[l] > arr[largest]) 
+		largest = l; 
+	if (r < n && arr[r] > arr[largest]) 
+		largest = r; 
+	if (largest != i) 
+	{ 
+		swap(arr[i], arr[largest]); 
 
-void heap_sort(int a[], int n) {
-  build_heap(a, n);
-  int heap_size, i, temp;
-  heap_size = n - 1;
-  for (i = heap_size; i >= 0; i--) {
-    temp = a[0];
-    a[0] = a[heap_size];
-    a[heap_size] = temp;
-    heap_size--;
-    satisfy_heap(a, 0, heap_size);
-  }
-}
+		heapify(arr, n, largest); 
+	} 
+} 
+void heapSort(int arr[], int n) 
+{	for (int i = n / 2 - 1; i >= 0; i--) 
+		heapify(arr, n, i); 
 
-void build_heap(int a[], int n) {
-  int i, heap_size;
-  heap_size = n - 1;
-  for (i = (n / 2); i >= 0; i--) {
-    satisfy_heap(a, i, heap_size);
-  }
-}
+	for (int i=n-1; i>=0; i--) 
+	{ 
+		swap(arr[0], arr[i]); 
+		heapify(arr, i, 0); 
+	} 
+} 
 
-void satisfy_heap(int a[], int i, int heap_size) {
-  int l, r, largest, temp;
-  l = 2 * i;
-  r = 2 * i + 1;
-  if (l <= heap_size && a[l] > a[i]) {
-    largest = l;
-  } else {
-    largest = i;
-  }
-  if (r <= heap_size && a[r] > a[largest]) {
-    largest = r;
-  }
-  if (largest != i) {
-    temp = a[i];
-    a[i] = a[largest];
-    a[largest] = temp;
-    satisfy_heap(a, largest, heap_size);
-  }
-}
+void printArray(int arr[], int n) 
+{ 
+	for (int i=0; i<n; ++i) 
+		cout << arr[i] << " "; 
+	cout << "\n"; 
+} 
 
-void display(int arr[],int size){
+// Driver program 
+int main() 
+{ 
+	int arr[] = {12, 11, 13, 5, 6, 7}; 
+	int n = sizeof(arr)/sizeof(arr[0]); 
 
-for(int i=0;i<size;i++)
-printf(" %d \t",arr[i]);
-}
+	heapSort(arr, n); 
 
-
-int main(){
-
-int *arr;
-
-int size=rand()%10;
-arr=(int *)malloc(sizeof(int)*size);
-
-for(int i=0;i<size;i++)
-	arr[i]=rand()%10;
-
-display(arr,size);
-heap_sort(arr,size);
-printf("\n");
-display(arr,size);
-
-
-
-}
+	cout << "Sorted array is \n"; 
+	printArray(arr, n); 
+} 
