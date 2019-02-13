@@ -1,38 +1,56 @@
+#include<stdio.h> 
 
-void quick_sort(int arr[], int first_index, int last_index) {
-  // declaring index variables
-  int pivotIndex, temp, index_a, index_b;
+void swap(int* a, int* b) 
+{ 
+	int t = *a; 
+	*a = *b; 
+	*b = t; 
+} 
 
-  if (first_index < last_index) {
-    // assigning first element index as pivot element
-    pivotIndex = first_index;
-    index_a = first_index;
-    index_b = last_index;
+int partition (int arr[], int low, int high) 
+{ 
+	int pivot = arr[high]; // pivot 
+	int i = (low - 1);  
 
-    // Sorting in Ascending order with quick sort
-    while (index_a < index_b) {
-      while (arr[index_a] <= arr[pivotIndex] && index_a < last_index) {
-        index_a++;
-      }
-      while (arr[index_b] > arr[pivotIndex]) {
-        index_b--;
-      }
+	for (int j = low; j <= high- 1; j++) 
+	{  
+		if (arr[j] <= pivot) 
+		{ 
+			i++;
+			swap(&arr[i], &arr[j]); 
+		} 
+	} 
+	swap(&arr[i + 1], &arr[high]); 
+	return (i + 1); 
+} 
 
-      if (index_a < index_b) {
-        // Swapping operation
-        temp = arr[index_a];
-        arr[index_a] = arr[index_b];
-        arr[index_b] = temp;
-      }
-    }
 
-    // At the end of first iteration, swap pivot element with index_b element
-    temp = arr[pivotIndex];
-    arr[pivotIndex] = arr[index_b];
-    arr[index_b] = temp;
+void quickSort(int arr[], int low, int high) 
+{ 
+	if (low < high) 
+	{ 
 
-    // Recursive call for quick sort, with partitioning
-    quick_sort(arr, first_index, index_b - 1);
-    quick_sort(arr, index_b + 1, last_index);
-  }
-}
+		int pi = partition(arr, low, high); 
+
+		quickSort(arr, low, pi - 1); 
+		quickSort(arr, pi + 1, high); 
+	} 
+} 
+
+void printArray(int arr[], int size) 
+{ 
+	int i; 
+	for (i=0; i < size; i++) 
+		printf("%d ", arr[i]); 
+	printf("n"); 
+} 
+
+int main() 
+{ 
+	int arr[] = {10, 7, 8, 9, 1, 5}; 
+	int n = sizeof(arr)/sizeof(arr[0]); 
+	quickSort(arr, 0, n-1); 
+	printf("Sorted array: n"); 
+	printArray(arr, n); 
+	return 0; 
+} 
