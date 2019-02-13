@@ -1,13 +1,3 @@
-/*
-
-Quick sort
-
-Worst case performance: O(n^2)
-Best case performance: Ω(n)
-Average performance: Θ(n log(n))
-Worst case space complexity: O(n)
-
-*/
 
 void quick_sort(int arr[], int first_index, int last_index) {
   // declaring index variables
