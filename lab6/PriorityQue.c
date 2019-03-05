@@ -39,8 +39,6 @@ int main()
 {
     size = 4;
     struct heap *h = (struct heap *)malloc(sizeof(struct heap) * size);
-    ;
-
     heap_push(h, 1, 1);
     heap_push(h, 2, 3);
     heap_push(h, 3, 4);
